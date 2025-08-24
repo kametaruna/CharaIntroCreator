@@ -16,6 +16,7 @@
 4. `charaintrocreator.exe` をクリックするとソフトが実行されます。  
    - 同じフォルダに展開された **「_internal」フォルダは移動させないでください。**  
 5. 起動した後の操作については **manual.png** を参照してください。  
+<img width="1600" height="1300" alt="manual" src="https://github.com/user-attachments/assets/7eca42a1-7fb7-46e7-98cb-7339f2a7b496" />
 
 ---
 
