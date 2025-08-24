@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+        <html lang="ja">
+        <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>キャラクター名 キャラクター紹介</title>
+        <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to bottom, #e0f7fa, #80deea);
+            margin: 0; padding: 20px;
+        }
+        .character-card {
+            display: flex; background-color: #ffffff; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            max-width:1000px; margin:0 auto; padding:25px; align-items:center; gap:20px;
+        }
+        .image-container {
+            flex: 0 0 260px;
+        }
+        .image-container img {
+            width: 100%; height: auto; border-radius:12px; object-fit:cover; border: 2px solid #0288d1;
+        }
+        .info-container {
+            flex: 1; display:flex; flex-direction:column; gap:10px;
+        }
+        .name {
+            font-size:28px; font-weight:bold; color:#0277bd;
+        }
+        .profile-section {
+            background-color:#e3f2fd;
+            padding: 4px 10px;
+            border-radius:8px;
+            white-space:pre-wrap;
+            word-wrap:break-word;
+            height:100px;
+            margin-left: 10px;
+            max-width: 400px;
+            overflow:hidden;
+        }
+        .profile-section h3 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            color: #0277bd;
+        }
+        .radar-chart {
+            flex: 0 0 220px; display:flex; align-items:center; justify-content:center;
+        }
+        .radar-chart canvas {
+            width:220px; height:220px; max-width:100%;
+        }
+        </style>
+        <script src="file:///C:/Users/k.utsumi/Downloads/charaintrocreator-20250824T093312Z-1-001/charaintrocreator/_internal/chart.js"></script>
+        </head>
+        <body>
+        <div class="character-card">
+            <div class="image-container">
+                
+            </div>
+            <div class="info-container">
+                <div class="name">キャラクター名</div>
+                <div class="profile-section" id="likes"><h3>好きなもの</h3><div>未設定</div></div>
+                <div class="profile-section" id="dislikes"><h3>嫌いなもの</h3><div>未設定</div></div>
+                <div class="profile-section" id="recent"><h3>最近あったこと</h3><div>未設定</div></div>
+            </div>
+            <div class="radar-chart"><canvas id="radarChart" width="220" height="220"></canvas></div>
+        </div>
+
+        <script>
+        window.chartDone = false;
+        document.addEventListener("DOMContentLoaded", function() {
+            try {
+                function adjustFontSize(sectionId) {
+                    const section = document.getElementById(sectionId);
+                    if (!section) return;
+                    const text = section.getElementsByTagName('div')[0];
+                    let fontSize = 24;
+                    let margin = 6;
+                    let counter = 0;
+                    const contentLength = text.textContent.length;
+                    while (fontSize > 12) {
+                        text.style.fontSize = fontSize + "px";
+                        if (text.scrollHeight + margin <= section.clientHeight) break;
+                        if (contentLength / 5 > counter){
+                            fontSize -= 1;
+                            counter += 1;
+                        }else{
+                            break;
+                        }
+                    }
+                }
+                adjustFontSize("likes");
+                adjustFontSize("dislikes");
+                adjustFontSize("recent");
+
+                const ctx = document.getElementById('radarChart').getContext('2d');
+                const config = {"type": "radar", "data": {"labels": ["攻撃力", "耐久力", "スピード", "知力", "精神力", "その他"], "datasets": [{"label": "キャラクター名の能力", "data": [0, 0, 0, 0, 0, 0], "fill": true, "backgroundColor": "rgba(2, 136, 209, 0.5)", "borderColor": "rgb(2, 136, 209)", "pointBackgroundColor": "rgb(2, 136, 209)", "pointBorderColor": "#fff", "pointHoverBackgroundColor": "#fff", "pointHoverBorderColor": "rgb(2, 136, 209)"}]}, "options": {"scale": {"angleLines": {"display": false}, "gridLines": {"display": false}, "ticks": {"beginAtZero": true, "min": 0, "max": 10, "stepSize": 2}}, "legend": {"display": false}}};
+                new Chart(ctx, config);
+                window.chartDone = true;
+            } catch(e) {
+                console.error("チャート生成エラー:", e);
+            }
+        });
+        </script>
+        </body>
+        </html>
+        
